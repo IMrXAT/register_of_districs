@@ -26,7 +26,7 @@ public class FarmerRegister {
     @Column(nullable = false)
     private String organizationName;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     private OrganizationForm organizationForm;
     private String INN;
     private String KPP;

@@ -43,22 +43,19 @@ public class DistrictService {
 
     @Transactional
     public void updateDistrict(Long id, DistrictDto districtDto) {
-        Optional<District> districtToChange = districtRepository.findById(id);
-        if (districtToChange.isEmpty()){
-            throw new DistrictNotFoundException("District with id " + id + " not found");
-        }
-        districtToChange.get().setDistrictName(districtDto.getDistrictName());
-        districtToChange.get().setDistrictCode(districtDto.getDistrictCode());
-        districtRepository.save(districtToChange.get());
+        District districtToChange = districtRepository.findById(id)
+                .orElseThrow(() -> new DistrictNotFoundException("District with id " + id + " not found"));
+
+        districtToChange.setDistrictName(districtDto.getDistrictName());
+        districtToChange.setDistrictCode(districtDto.getDistrictCode());
+        districtRepository.save(districtToChange);
     }
 
     @Transactional
     public void archiveDistrictById(Long id) {
-        Optional<District> districtToArchive = districtRepository.findById(id);
-        if (districtToArchive.isEmpty()){
-            throw new DistrictNotFoundException("District with id " + id + " not found");
-        }
-        districtToArchive.get().setIsArchived(true);
-        districtRepository.save(districtToArchive.get());
+        District districtToArchive = districtRepository.findById(id)
+                .orElseThrow(() -> new DistrictNotFoundException("District with id " + id + " not found"));
+        districtToArchive.setIsArchived(true);
+        districtRepository.save(districtToArchive);
     }
 }
