@@ -1,15 +1,16 @@
 package nsu.iss.register.districts.core.farmers.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nsu.iss.register.districts.domain.District;
-import org.antlr.v4.runtime.misc.NotNull;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class FarmerCreationDto {
 
     private String organizationName;

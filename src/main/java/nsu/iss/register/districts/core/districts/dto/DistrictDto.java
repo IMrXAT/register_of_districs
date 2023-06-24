@@ -11,7 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DistrictDto {
     private Long id;
-
     private String districtName;
     private Long districtCode;
 }
