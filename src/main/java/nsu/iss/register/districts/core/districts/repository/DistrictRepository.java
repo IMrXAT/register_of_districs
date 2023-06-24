@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DistrictRepository extends JpaRepository<District, Long>, JpaSpecificationExecutor<District> {
+    District findByDistrictName(String registerDistrict);
+
+    District findAllByDistrictName(String districtName);
 }

@@ -19,4 +19,13 @@ public class FarmerService {
     public List<Farmer> findAllFarmers() {
         return farmerRepository.findAll();
     }
+
+
+    public void addFarmer(Farmer farmer) {
+        farmerRepository.save(farmer);
+    }
+
+    public Farmer findFarmerById(Long id) {
+        return farmerRepository.findById(id).orElseThrow();
+    }
 }

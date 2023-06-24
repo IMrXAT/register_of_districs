@@ -43,21 +43,21 @@ public class DistrictController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/new-district")
+    @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
     public void addNewDistrict(@RequestBody DistrictCreationDto newDistrictDto){
         District newDistrict = newDistrictMapper.toEntity(newDistrictDto);
         districtService.save(newDistrict);
     }
 
-    @PutMapping("/to-archive/{id}")
+    @PutMapping("/archive/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void ArchiveDistrict(@PathVariable Long id){
         districtService.archiveDistrictById(id);
     }
 
 
-    @PutMapping("/update-district/{id}")
+    @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateDistrict(@PathVariable Long id, @RequestBody DistrictDto districtDto){
         districtService.updateDistrict(id, districtDto);
