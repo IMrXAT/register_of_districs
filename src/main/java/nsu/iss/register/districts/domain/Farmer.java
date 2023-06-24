@@ -45,4 +45,8 @@ public class Farmer {
 
     private LocalDate registrationDate;
     private boolean isArchived;
+
+    public void addNewFieldDistrict(District district) {
+        fieldsDistricts.add(district);
+    }
 }
