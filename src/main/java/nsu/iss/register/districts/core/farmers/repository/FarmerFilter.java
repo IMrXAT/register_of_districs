@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class FarmerFilter {
-    private String farmerName;
+    private String organizationName;
     private String INN;
     private String farmerRegistrationDistrictName;
     @JsonFormat(pattern = "yyyy-MM-dd")

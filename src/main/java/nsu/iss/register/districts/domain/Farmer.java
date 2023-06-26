@@ -1,13 +1,11 @@
 package nsu.iss.register.districts.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,9 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "farmer_register")
+@Table(name = "farmer")
 public class Farmer {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(nullable = false)
     private String organizationName;
@@ -35,12 +33,13 @@ public class Farmer {
     private String OGRN;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private District registerDistrict;
     @ManyToMany
     @JoinTable(
             name = "district_field",
             joinColumns = @JoinColumn(name = "field"),
-            inverseJoinColumns = @JoinColumn(name = "reg"))
+            inverseJoinColumns = @JoinColumn(name = "farmer"))
     private List<District> fieldsDistricts;
 
     private LocalDate registrationDate;

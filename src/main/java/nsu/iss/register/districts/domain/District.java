@@ -1,7 +1,6 @@
 package nsu.iss.register.districts.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,13 +11,11 @@ import lombok.Setter;
 @Table(name = "district")
 public class District {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(nullable = false, unique = true)
     private String districtName;
-
     private Long districtCode;
-
     private Boolean isArchived;
 
     public District(){}

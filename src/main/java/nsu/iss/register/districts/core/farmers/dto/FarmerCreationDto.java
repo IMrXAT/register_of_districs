@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FarmerCreationDto {
-
     private String organizationName;
     private String organizationForm;
     private String INN;

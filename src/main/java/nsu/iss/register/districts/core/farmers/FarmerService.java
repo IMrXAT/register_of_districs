@@ -1,8 +1,10 @@
 package nsu.iss.register.districts.core.farmers;
 
 import jakarta.transaction.Transactional;
+import nsu.iss.register.districts.core.districts.exception.DistrictNotFoundException;
 import nsu.iss.register.districts.core.districts.repository.DistrictRepository;
 import nsu.iss.register.districts.core.farmers.dto.FarmerDto;
+import nsu.iss.register.districts.core.farmers.exception.FarmerNotFoundException;
 import nsu.iss.register.districts.core.farmers.mapper.FarmerMapper;
 import nsu.iss.register.districts.core.farmers.repository.FarmerFilter;
 import nsu.iss.register.districts.core.farmers.repository.FarmerRepository;
@@ -33,41 +35,43 @@ public class FarmerService {
 
 
     public void addFarmer(Farmer farmer) {
+
         farmerRepository.save(farmer);
     }
 
     public Farmer findFarmerById(Long id) {
-        //TODO catch exceptions
-        return farmerRepository.findById(id).orElseThrow();
+        return farmerRepository.findById(id).orElseThrow(() -> new FarmerNotFoundException("farmer with id " + id + " not found"));
     }
 
     @Transactional
     public void archiveFarmerById(Long id) {
-        //TODO catch exceptions
         Farmer farmerToArchive = farmerRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new FarmerNotFoundException("could not archive farmer with id " + id + " because farmer not found"));
         farmerToArchive.setArchived(true);
         farmerRepository.save(farmerToArchive);
     }
 
     @Transactional
     public void updateFarmerInfo(Long id, FarmerDto farmerUpdatesDto) {
-        //TODO catch exceptions
         Farmer farmerToChange = farmerRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new FarmerNotFoundException("could not update farmer with id " + id + " because farmer not found"));
         farmerMapper.updateFarmerByNotNullFieldsOfFarmerDto(farmerToChange, farmerUpdatesDto);
         farmerRepository.save(farmerToChange);
     }
 
+    @Transactional
     public void addNewDistrictFieldToFarmerByDistrictName(String additionalDistrictName, Long farmerId) {
-        //TODO catch exceptions
         District district = districtRepository.findByDistrictName(additionalDistrictName);
-        Farmer farmerToAddFieldDistrict = farmerRepository.findById(farmerId).orElseThrow();
+        if (district == null){
+            throw new DistrictNotFoundException("not found district with name " + additionalDistrictName + " to add it to farmer with id " + farmerId);
+        }
+
+        Farmer farmerToAddFieldDistrict = findFarmerById(farmerId);
         farmerToAddFieldDistrict.addNewFieldDistrict(district);
+        farmerRepository.save(farmerToAddFieldDistrict);
     }
 
     public List<Farmer> findFarmersRegistryWithFilters(FarmerFilter farmerFilter) {
-        //TODO catch exceptions
         Specification<Farmer> specification = FarmerSpecification.getSpecification(farmerFilter);
         return farmerRepository.findAll(specification);
     }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import nsu.iss.register.districts.domain.OrganizationForm;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,12 +14,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FarmerDto {
+    private Long id;
     private String organizationName;
-    private String organizationForm;
+    private OrganizationForm organizationForm;
     private String INN;
     private String KPP;
     private String OGRN;
     private String registerDistrict;
     private LocalDate registrationDate;
     private List<String> fieldsDistricts;
+    private Boolean isArchived;
 }
