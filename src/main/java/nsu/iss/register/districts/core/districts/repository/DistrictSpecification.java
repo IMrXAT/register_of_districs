@@ -12,7 +12,7 @@ public class DistrictSpecification {
     public static Specification<District> getSpecification(DistrictFilter districtFilter){
         return ((root, query, builder) -> {
             List<Predicate> predicates = new ArrayList<>();
-            if (districtFilter.getDistrictName() != null && !districtFilter.getDistrictName().isEmpty()){
+            if (!districtFilter.getDistrictName().isBlank()){
                 predicates.add(builder.like(builder.lower(root.get("districtName")), "%" + districtFilter.getDistrictName().toLowerCase() + "%"));
             }
             if (districtFilter.getDistrictCode() != null){

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import nsu.iss.register.districts.core.farmers.dto.FarmerDto;
 import nsu.iss.register.districts.domain.District;
 import nsu.iss.register.districts.domain.Farmer;
-import nsu.iss.register.districts.domain.OrganizationForm;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -17,7 +16,7 @@ public class FarmerMapper {
     public FarmerDto toDto(Farmer farmer) {
         return new FarmerDto(
                 farmer.getOrganizationName(),
-                String.valueOf(farmer.getOrganizationForm()),
+                farmer.getOrganizationForm(),
                 farmer.getINN(),
                 farmer.getKPP(),
                 farmer.getOGRN(),
@@ -36,8 +35,7 @@ public class FarmerMapper {
             farmer.setOrganizationName(farmerDto.getOrganizationName());
         }
         if (farmerDto.getOrganizationForm() != null) {
-            //TODO catch IllegalArgumentException
-            farmer.setOrganizationForm(OrganizationForm.valueOf(farmerDto.getOrganizationForm()));
+                farmer.setOrganizationForm(farmerDto.getOrganizationForm());
         }
         if (farmerDto.getINN() != null) {
             farmer.setINN(farmerDto.getINN());

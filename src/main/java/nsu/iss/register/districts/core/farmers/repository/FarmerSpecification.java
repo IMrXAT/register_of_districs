@@ -14,22 +14,26 @@ public class FarmerSpecification {
     public static Specification<Farmer> getSpecification(FarmerFilter farmerFilter){
         return ((root, query, builder) -> {
             List<Predicate> predicates = new ArrayList<>();
-            if (farmerFilter.getFarmerName() != null && !farmerFilter.getFarmerName().isEmpty()){
+            if (farmerFilter.getFarmerName().isBlank()){
                 predicates.add(builder.like(builder.lower(root.get("farmerName")), "%" + farmerFilter.getFarmerName().toLowerCase() + "%"));
             }
-            if (farmerFilter.getFarmerRegistrationDistrictName() != null){
+            if (farmerFilter.getFarmerRegistrationDistrictName().isBlank()){
                 predicates.add(builder.equal((root.get("registrationDistrict").get("districtName")), farmerFilter.getFarmerRegistrationDistrictName()));
             }
-            if(farmerFilter.getINN() != null && ! farmerFilter.getINN().isEmpty()){
+            if(farmerFilter.getINN().isBlank()){
                 predicates.add(builder.equal(builder.lower(root.get("INN")), "%" + farmerFilter.getINN() + "%"));
             }
-            if(farmerFilter.getEndRegistrationDate() != null && farmerFilter.getStartRegistrationDate() != null){
+            if(farmerFilter.getStartRegistrationDate() != null){
                 Path<LocalDate> registrationDate = root.get("registrationDate");
-                predicates.add(builder.between(registrationDate, farmerFilter.getStartRegistrationDate(), farmerFilter.getEndRegistrationDate()));
+                predicates.add(builder.greaterThan(registrationDate, farmerFilter.getStartRegistrationDate()));
+            }
+            if(farmerFilter.getEndRegistrationDate() != null){
+                Path<LocalDate> registrationDate = root.get("registrationDate");
+                predicates.add(builder.lessThan(registrationDate, farmerFilter.getEndRegistrationDate()));
             }
             predicates.add(builder.isFalse(root.get("isArchived")));
             return builder.and(predicates.toArray(new Predicate[0]));
         });
     }
-
 }
+

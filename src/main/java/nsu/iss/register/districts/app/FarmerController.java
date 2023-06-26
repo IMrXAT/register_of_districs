@@ -1,14 +1,11 @@
 package nsu.iss.register.districts.app;
 
 import lombok.AllArgsConstructor;
-import nsu.iss.register.districts.core.districts.dto.DistrictDto;
-import nsu.iss.register.districts.core.districts.mapper.DistrictMapper;
 import nsu.iss.register.districts.core.farmers.dto.FarmerCreationDto;
 import nsu.iss.register.districts.core.farmers.dto.FarmerDto;
 import nsu.iss.register.districts.core.farmers.mapper.FarmerCreationMapper;
 import nsu.iss.register.districts.core.farmers.mapper.FarmerMapper;
 import nsu.iss.register.districts.core.farmers.repository.FarmerFilter;
-import nsu.iss.register.districts.domain.District;
 import nsu.iss.register.districts.domain.Farmer;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +23,6 @@ public class FarmerController {
     private final FarmerService farmerService;
     private final FarmerMapper farmerMapper;
     private final FarmerCreationMapper farmerCreationMapper;
-    private final DistrictMapper districtMapper;
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
