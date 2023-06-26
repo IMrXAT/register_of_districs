@@ -35,6 +35,7 @@ public class FarmerService {
 
 
     public void addFarmer(Farmer farmer) {
+
         farmerRepository.save(farmer);
     }
 
@@ -64,6 +65,7 @@ public class FarmerService {
         if (district == null){
             throw new DistrictNotFoundException("not found district with name " + additionalDistrictName + " to add it to farmer with id " + farmerId);
         }
+
         Farmer farmerToAddFieldDistrict = findFarmerById(farmerId);
         farmerToAddFieldDistrict.addNewFieldDistrict(district);
         farmerRepository.save(farmerToAddFieldDistrict);

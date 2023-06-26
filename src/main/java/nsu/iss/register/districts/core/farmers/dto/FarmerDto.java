@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FarmerDto {
+    private Long id;
     private String organizationName;
     private OrganizationForm organizationForm;
     private String INN;
@@ -22,4 +23,5 @@ public class FarmerDto {
     private String registerDistrict;
     private LocalDate registrationDate;
     private List<String> fieldsDistricts;
+    private Boolean isArchived;
 }

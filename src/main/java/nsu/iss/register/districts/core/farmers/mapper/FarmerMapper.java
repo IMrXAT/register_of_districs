@@ -15,6 +15,7 @@ public class FarmerMapper {
 
     public FarmerDto toDto(Farmer farmer) {
         return new FarmerDto(
+                farmer.getId(),
                 farmer.getOrganizationName(),
                 farmer.getOrganizationForm(),
                 farmer.getINN(),
@@ -25,7 +26,8 @@ public class FarmerMapper {
                 farmer.getFieldsDistricts()
                         .stream()
                         .map(District::getDistrictName)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                farmer.isArchived()
                 );
     }
 
