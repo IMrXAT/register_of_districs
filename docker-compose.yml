@@ -1,0 +1,25 @@
+version: "3"
+services:
+  fap-api:
+    container_name: register-of-districts
+    build: ./
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://reg-postgres:5432/registers
+    ports:
+      - "8080:8080"
+    depends_on:
+      - reg-postgres
+
+  reg-postgres:
+    container_name: reg-postgres
+    image: 'postgres:13.1-alpine'
+    environment:
+      - POSTGRES_USER=mrxat
+      - POSTGRES_PASSWORD=1111
+      - POSTGRES_DB=registers
+    expose:
+      - "5435"
+    ports:
+      - "5435:5435"
+    command: -p 5432
+    restart: always
